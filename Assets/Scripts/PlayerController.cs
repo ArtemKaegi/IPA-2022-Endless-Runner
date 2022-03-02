@@ -35,12 +35,12 @@ public class PlayerController : MonoBehaviour
     {
         currentTransform = horizontalPositions[currentHorizontalPosition].verticalPositions[currentVerticalPosition]
             .transform;
-        dragDistance = Screen.height * 15 / 100;
+        dragDistance = Screen.height * 5 / 100;
         rb = GetComponent<Rigidbody>();
         startPosition = transform.position;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (rb.velocity.magnitude < maxSpeed)
         {
