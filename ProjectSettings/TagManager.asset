@@ -6,6 +6,13 @@ TagManager:
   tags:
   - Menu
   - SkinSelector
+  - Obstacle
+  - TileTrigger
+  - ObstacleTrigger
+  - GameOver
+  - GameUI
+  - Coin
+  - coinText
   layers:
   - Default
   - TransparentFX

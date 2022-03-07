@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
         public GameObject[] verticalPositions;
     }
 
+    [SerializeField] private GameManager gm;
+    [SerializeField] private GameObject explosionObject;
     [SerializeField] private positionCluster[] horizontalPositions;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private float laneSwitchingSpeed;
@@ -20,17 +22,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float duckTime;
     [SerializeField] private float maxSpeed;
     [SerializeField] private float acceleration;
-    private Vector3 startPosition;
+    public Vector3 startPosition;
     private Rigidbody rb;
     public Transform currentTransform;
     public int currentHorizontalPosition = 1;
     public int currentVerticalPosition = 1;
+    public GameObject selectedSkin;
+    private GameObject currentSkin;
     private Vector3 firstPosition;
     private Vector3 lastPosition;
     private float dragDistance;
     private bool isDucking = false;
     private bool isJumping = false;
+    private bool moved = false;
     private float countdown = 0;
+
     void Start()
     {
         currentTransform = horizontalPositions[currentHorizontalPosition].verticalPositions[currentVerticalPosition]
@@ -40,15 +46,23 @@ public class PlayerController : MonoBehaviour
         startPosition = transform.position;
     }
 
-    void FixedUpdate()
+    private void OnEnable()
+    {
+        Destroy(currentSkin);
+        currentSkin = Instantiate(selectedSkin, playerTransform.position, playerTransform.rotation, playerTransform);
+    }
+
+    void Update()
     {
         if (rb.velocity.magnitude < maxSpeed)
         {
             rb.AddForce(0, 0, acceleration);
         }
+
+        CheckInput();
+
         playerTransform.position = Vector3.Lerp(playerTransform.position, currentTransform.position,
             laneSwitchingSpeed * Time.deltaTime);
-        CheckInput();
 
         if (isJumping || isDucking)
         {
@@ -66,22 +80,30 @@ public class PlayerController : MonoBehaviour
 
     void CheckInput()
     {
-        if (Input.touchCount == 1)
+        if (Input.touchCount >= 1)
         {
-            Touch touch = Input.GetTouch(0);
-            switch (touch.phase)
-            {
-                case TouchPhase.Began:
-                    firstPosition = touch.position;
-                    lastPosition = touch.position;
-                    break;
-                case TouchPhase.Ended:
+            CheckTouch(Input.GetTouch(0));
+        }
+    }
+
+    void CheckTouch(Touch touch)
+    {
+        switch (touch.phase)
+        {
+            case TouchPhase.Began:
+                firstPosition = touch.position;
+                lastPosition = touch.position;
+                break;
+            case TouchPhase.Moved:
+
+                if (!moved)
                 {
                     lastPosition = touch.position;
 
-                    if (Mathf.Abs(lastPosition.x - firstPosition.x) > dragDistance ||
+                    if (Mathf.Abs(lastPosition.x - firstPosition.x) + 20 > dragDistance ||
                         Mathf.Abs(lastPosition.y - firstPosition.y) > dragDistance)
                     {
+                        moved = true;
                         if (Mathf.Abs(lastPosition.x - firstPosition.x) > Mathf.Abs(lastPosition.y - firstPosition.y))
                         {
                             if ((lastPosition.x > firstPosition.x))
@@ -116,12 +138,17 @@ public class PlayerController : MonoBehaviour
                                 }
                             }
                         }
+
                         currentTransform = horizontalPositions[currentHorizontalPosition]
                             .verticalPositions[currentVerticalPosition].transform;
                     }
-
-                    break;
                 }
+
+                break;
+            case TouchPhase.Ended:
+            {
+                moved = false;
+                break;
             }
         }
     }
@@ -139,4 +166,45 @@ public class PlayerController : MonoBehaviour
         countdown = duckTime;
         currentVerticalPosition = 0;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("ObstacleTrigger"))
+        {
+            gm.GenerateRandomObstacle();
+        }
+        else if (other.CompareTag("TileTrigger"))
+        {
+            gm.GenerateRandomTile();
+        }
+        else if (other.gameObject.CompareTag("Coin"))
+        {
+            other.gameObject.GetComponent<CoinController>().Pop();
+            Debug.Log("CoinsAdd");
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            Die();
+            Debug.Log(collision.gameObject.transform.position);
+        }
+    }
+
+    private void Die()
+    {
+        gm.GameEnd();
+        GameObject currentExplosion =
+            Instantiate(explosionObject, playerTransform.position, playerTransform.rotation, null);
+        Destroy(currentExplosion, 10);
+        playerTransform.position = horizontalPositions[1].verticalPositions[1].transform.position;
+        currentTransform = horizontalPositions[1].verticalPositions[1].transform;
+        transform.position = startPosition;
+        currentHorizontalPosition = 1;
+        currentVerticalPosition = 1;
+        gameObject.SetActive(false);
+    }
+
 }
