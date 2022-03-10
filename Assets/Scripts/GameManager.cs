@@ -9,23 +9,31 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-    private float currentTileGenerationZ;
-    private float currentObstacleGenerationZ;
-    private ArrayList generatedTiles = new ArrayList();
-    private ArrayList generatedObstacles = new ArrayList();
-    private ArrayList generatedCoins = new ArrayList();
-    [SerializeField] private GameObject coin;
-    [SerializeField] private float coinDistance;
-    [SerializeField] private int currentCoins;
-    private int allCoins;
+    #region misc
+
     private TextMeshProUGUI coinText;
     private Transform lastExit;
     private GameObject player;
+    private TextMeshProUGUI scoreText;
+    private bool GameStarted = false;
+    private int score;
+    private BackendConnector connector;
+
+    #endregion
+
+    #region Menu
+
     private GameObject menu;
     private GameObject skinSelector;
     private GameObject gameOverUi;
     private GameObject gameUi;
-    private TextMeshProUGUI scoreText;
+    private GameObject newPlayerUi;
+    [SerializeField] private TextMeshProUGUI playerNameText;
+
+    #endregion
+
+    #region Camera
+
     private CameraController camera;
     private GameObject cameraDeathPosition;
     [SerializeField] private float cameraMovementSpeed;
@@ -33,11 +41,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject cameraDefaultPosition;
     [SerializeField] private GameObject cameraPlayerPosition;
     [SerializeField] private GameObject cameraSkinsPosition;
-    [SerializeField] private SkinsController skinsController;
-    private bool GameStarted = false;
-    private float score;
-    [SerializeField]private GameObject defaultSkin;
-    public GameObject skin;
+
+    #endregion
+
+    #region Tiles
+
+    private float currentTileGenerationZ;
 
     [Serializable]
     public struct Tile
@@ -45,6 +54,17 @@ public class GameManager : MonoBehaviour
         public float length;
         public GameObject tileObject;
     }
+
+
+    [SerializeField] private Tile[] tiles;
+
+    private ArrayList generatedTiles = new ArrayList();
+
+    #endregion
+
+    #region Obstacles
+
+    private float currentObstacleGenerationZ;
 
     [Serializable]
     public struct Obstacle
@@ -54,10 +74,32 @@ public class GameManager : MonoBehaviour
         public Transform[] exits;
     }
 
-    [SerializeField] private Tile[] tiles;
+
     [SerializeField] private Obstacle[] obstacles;
     [SerializeField] private float firstObstacleDistance;
     [SerializeField] private int lastObstacle;
+
+    private ArrayList generatedObstacles = new ArrayList();
+
+    #endregion
+
+    #region Coins
+
+    private ArrayList generatedCoins = new ArrayList();
+    [SerializeField] private GameObject coin;
+    [SerializeField] private float coinDistance;
+    [SerializeField] private int currentCoins;
+    private int allCoins;
+
+    #endregion
+
+    #region Skins
+
+    [SerializeField] private SkinsController skinsController;
+    [SerializeField] private GameObject defaultSkin;
+    public GameObject skin;
+
+    #endregion
 
     private void Start()
     {
@@ -67,6 +109,7 @@ public class GameManager : MonoBehaviour
         skinSelector = GameObject.FindWithTag("SkinSelector");
         gameOverUi = GameObject.FindWithTag("GameOver");
         gameUi = GameObject.FindWithTag("GameUI");
+        newPlayerUi = GameObject.FindWithTag("NewPlayer");
         coinText = GameObject.FindWithTag("coinText").GetComponent<TextMeshProUGUI>();
         camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
         camera.currentCameraPosition = cameraDefaultPosition;
@@ -77,7 +120,40 @@ public class GameManager : MonoBehaviour
         gameOverUi.SetActive(false);
         gameUi.SetActive(false);
         scoreText = gameUi.GetComponentInChildren<TextMeshProUGUI>();
+        connector = GameObject.FindWithTag("BackendConnector").GetComponent<BackendConnector>();
+        if (PlayerPrefs.GetString("PlayerName") == "")
+        {
+            menu.SetActive(false);
+        }
+        else
+        {
+            newPlayerUi.SetActive(false);
+        }
+        
     }
+
+    #region Backend
+
+    public void CreateNewPlayerBackend()
+    {
+        string playerName = playerNameText.text;
+        string deviceId = SystemInfo.deviceUniqueIdentifier;
+        
+        PlayerPrefs.SetString("PlayerName", playerName);
+        
+        connector.AddPlayer(playerName, deviceId);
+    }
+
+    public void SetNewHighscore(int highscore)
+    {
+        string deviceId = SystemInfo.deviceUniqueIdentifier;
+        
+        connector.setHighscore(deviceId, highscore.ToString());
+    }
+    
+    #endregion
+
+    #region Game Control
 
     public void StartGame()
     {
@@ -91,151 +167,16 @@ public class GameManager : MonoBehaviour
         gameUi.SetActive(true);
     }
 
-    public void ToSkinsFromMenu()
-    {
-        camera.currentCameraPosition = cameraSkinsPosition;
-        menu.SetActive(false);
-        skinSelector.SetActive(true);
-        skinsController.UpdateCoinsText();
-        skinsController.UpdateBuyEquipText();
-    }
-
-    public void ToMenuFromSkins()
-    {
-        camera.currentCameraPosition = cameraDefaultPosition;
-        menu.SetActive(true);
-        skinSelector.SetActive(false);
-    }
-
-    public void GenerateRandomTile()
-    {
-        int i = Random.Range(0, tiles.Length);
-        GenerateTile(i);
-    }
-
-    private void GenerateTile(int i)
-    {
-        GameObject x = Instantiate(tiles[i].tileObject,
-            transform.position + Vector3.forward * currentTileGenerationZ, transform.rotation,
-            null);
-        generatedTiles.Add(x);
-        currentTileGenerationZ += tiles[i].length;
-    }
-
-    public void GenerateRandomObstacle()
-    {
-        int i = Random.Range(0, obstacles.Length);
-        GenerateObstacle(i);
-    }
-
-    public void GenerateObstacle(int i)
-    {
-        GameObject x = Instantiate(obstacles[i].obstacleObject,
-            transform.position + Vector3.forward * currentObstacleGenerationZ, transform.rotation,
-            null);
-        generatedObstacles.Add(x);
-
-        GenerateCoins(i);
-
-        currentObstacleGenerationZ += obstacles[i].length;
-        if (GameStarted)
-        {
-            if (player.GetComponent<PlayerController>().currentHorizontalPosition == 1)
-            {
-                score += 1;
-            }
-            score += 1;
-            scoreText.text = score.ToString();
-        }
-    }
-
-    private void GenerateCoins(int i)
-    {
-        int amountOfCoins = (int) (obstacles[i].length / coinDistance);
-        if (generatedObstacles.Count > 2)
-        {
-            if (lastExit == null)
-            {
-                lastExit = obstacles[lastObstacle].exits[Random.Range(0, obstacles[lastObstacle].exits.Length)];
-            }
-
-            Transform currentExit = obstacles[i].exits[Random.Range(0, obstacles[i].exits.Length)];
-            if (1 <= Mathf.Abs(lastExit.position.y - currentExit.position.y))
-            {
-                if (1 <= Mathf.Abs(lastExit.position.x - currentExit.position.x))
-                {
-                    for (int currentCoin = 0; currentCoin < amountOfCoins / 2; currentCoin++)
-                    {
-                        generatedCoins.Add(Instantiate(coin,
-                            new Vector3(lastExit.position.x, lastExit.position.y,
-                                (currentObstacleGenerationZ - obstacles[lastObstacle].length) +
-                                coinDistance * currentCoin), transform.rotation, null));
-                    }
-
-                    for (int currentCoin = 0; currentCoin < amountOfCoins / 2; currentCoin++)
-                    {
-                        generatedCoins.Add(Instantiate(coin,
-                            new Vector3(currentExit.position.x, currentExit.position.y,
-                                (currentObstacleGenerationZ - obstacles[lastObstacle].length) +
-                                coinDistance * (currentCoin + amountOfCoins / 2)),
-                            transform.rotation, null));
-                    }
-                }
-            }
-            else
-            {
-                for (int currentCoin = 0; currentCoin < amountOfCoins / 3; currentCoin++)
-                {
-                    generatedCoins.Add(Instantiate(coin,
-                        new Vector3(lastExit.position.x, lastExit.position.y,
-                            (currentObstacleGenerationZ - obstacles[lastObstacle].length) + coinDistance * currentCoin),
-                        transform.rotation, null));
-                }
-
-                if (1 < Mathf.Abs(lastExit.position.x - currentExit.position.x))
-                {
-                    for (int currentCoin = 0; currentCoin < amountOfCoins / 3; currentCoin++)
-                    {
-                        generatedCoins.Add(Instantiate(coin,
-                            new Vector3(lastExit.position.x, lastExit.position.y,
-                                (currentObstacleGenerationZ - obstacles[lastObstacle].length) +
-                                coinDistance * (currentCoin + amountOfCoins / 3)), transform.rotation, null));
-                    }
-                }
-                else
-                {
-                    for (int currentCoin = 0; currentCoin < amountOfCoins / 3; currentCoin++)
-                    {
-                        generatedCoins.Add(Instantiate(coin,
-                            new Vector3(lastExit.position.x,
-                                player.GetComponent<PlayerController>().startPosition.y + 1.5f,
-                                (currentObstacleGenerationZ - obstacles[lastObstacle].length) +
-                                coinDistance * (currentCoin + amountOfCoins / 3)), transform.rotation, null));
-                    }
-                }
-
-                for (int currentCoin = 0; currentCoin < amountOfCoins / 3 + 1; currentCoin++)
-                {
-                    generatedCoins.Add(Instantiate(coin,
-                        new Vector3(currentExit.position.x, currentExit.position.y,
-                            (currentObstacleGenerationZ - obstacles[lastObstacle].length) +
-                            coinDistance * (currentCoin + (amountOfCoins / 3) * 2)), transform.rotation, null));
-                }
-            }
-
-            lastExit = currentExit;
-        }
-
-        lastObstacle = i;
-    }
-
-    public void AddCoins(int amount)
-    {
-        currentCoins += amount;
-    }
-
     private void GenerateStart()
     {
+        GenerateRandomTile();
+        GenerateRandomTile();
+        GenerateRandomTile();
+        GenerateRandomTile();
+        GenerateRandomTile();
+        GenerateRandomTile();
+        GenerateRandomTile();
+        GenerateRandomTile();
         GenerateRandomTile();
         GenerateRandomTile();
         GenerateRandomTile();
@@ -287,6 +228,7 @@ public class GameManager : MonoBehaviour
         {
             camera.Shake(-1, 0.3f);
         }
+        SetNewHighscore(score);
     }
 
     private void ResetGame()
@@ -311,6 +253,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(x);
         }
+
         generatedTiles = new ArrayList();
         generatedObstacles = new ArrayList();
         generatedCoins = new ArrayList();
@@ -327,6 +270,151 @@ public class GameManager : MonoBehaviour
         StartGame();
     }
 
+    #endregion
+
+    #region Level Generation
+
+    public void GenerateRandomTile()
+    {
+        int i = Random.Range(0, tiles.Length);
+        GenerateTile(i);
+    }
+
+    private void GenerateTile(int i)
+    {
+        GameObject x = Instantiate(tiles[i].tileObject,
+            transform.position + Vector3.forward * currentTileGenerationZ, transform.rotation,
+            null);
+        generatedTiles.Add(x);
+        currentTileGenerationZ += tiles[i].length;
+    }
+
+    public void GenerateRandomObstacle()
+    {
+        int i = Random.Range(0, obstacles.Length);
+        GenerateObstacle(i);
+    }
+
+    public void GenerateObstacle(int i)
+    {
+        GameObject x = Instantiate(obstacles[i].obstacleObject,
+            transform.position + Vector3.forward * currentObstacleGenerationZ, transform.rotation,
+            null);
+        generatedObstacles.Add(x);
+
+        GenerateCoins(i);
+
+        currentObstacleGenerationZ += obstacles[i].length;
+        if (GameStarted)
+        {
+            if (player.GetComponent<PlayerController>().currentHorizontalPosition == 1)
+            {
+                score += 1;
+            }
+
+            score += 1;
+            scoreText.text = score.ToString();
+        }
+    }
+
+    private void GenerateCoins(int currentObstacle)
+    {
+        int amountOfCoins = (int) (obstacles[currentObstacle].length / coinDistance);
+        if (generatedObstacles.Count > 2)
+        {
+            if (lastExit == null)
+            {
+                lastExit = obstacles[lastObstacle].exits[Random.Range(0, obstacles[lastObstacle].exits.Length)];
+            }
+
+            Transform currentExit = obstacles[currentObstacle]
+                .exits[Random.Range(0, obstacles[currentObstacle].exits.Length)];
+            if (1 <= Mathf.Abs(lastExit.position.y - currentExit.position.y))
+            {
+                for (int currentCoin = 0; currentCoin < amountOfCoins / 2; currentCoin++)
+                {
+                    generatedCoins.Add(Instantiate(coin,
+                        new Vector3(lastExit.position.x, lastExit.position.y,
+                            (currentObstacleGenerationZ - obstacles[lastObstacle].length) +
+                            coinDistance * currentCoin), transform.rotation, null));
+                }
+
+                for (int currentCoin = 0; currentCoin < amountOfCoins / 2; currentCoin++)
+                {
+                    generatedCoins.Add(Instantiate(coin,
+                        new Vector3(currentExit.position.x, currentExit.position.y,
+                            (currentObstacleGenerationZ - obstacles[lastObstacle].length) +
+                            coinDistance * (currentCoin + amountOfCoins / 2)),
+                        transform.rotation, null));
+                }
+            }
+            else
+            {
+                for (int currentCoin = 0; currentCoin < amountOfCoins / 3; currentCoin++)
+                {
+                    generatedCoins.Add(Instantiate(coin,
+                        new Vector3(lastExit.position.x, lastExit.position.y,
+                            (currentObstacleGenerationZ - obstacles[lastObstacle].length) + coinDistance * currentCoin),
+                        transform.rotation, null));
+                }
+
+                if (1 < Mathf.Abs(lastExit.position.x - currentExit.position.x))
+                {
+                    for (int currentCoin = 0; currentCoin < amountOfCoins / 3; currentCoin++)
+                    {
+                        generatedCoins.Add(Instantiate(coin,
+                            new Vector3(lastExit.position.x, lastExit.position.y,
+                                (currentObstacleGenerationZ - obstacles[lastObstacle].length) +
+                                coinDistance * (currentCoin + amountOfCoins / 3)), transform.rotation, null));
+                    }
+                }
+                else
+                {
+                    for (int currentCoin = 0; currentCoin < amountOfCoins / 3; currentCoin++)
+                    {
+                        generatedCoins.Add(Instantiate(coin,
+                            new Vector3(lastExit.position.x,
+                                player.GetComponent<PlayerController>().startPosition.y + 1.5f,
+                                (currentObstacleGenerationZ - obstacles[lastObstacle].length) +
+                                coinDistance * (currentCoin + amountOfCoins / 3)), transform.rotation, null));
+                    }
+                }
+
+                for (int currentCoin = 0; currentCoin < amountOfCoins / 3 + 1; currentCoin++)
+                {
+                    generatedCoins.Add(Instantiate(coin,
+                        new Vector3(currentExit.position.x, currentExit.position.y,
+                            (currentObstacleGenerationZ - obstacles[lastObstacle].length) +
+                            coinDistance * (currentCoin + (amountOfCoins / 3) * 2)), transform.rotation, null));
+                }
+            }
+
+            lastExit = currentExit;
+        }
+
+        lastObstacle = currentObstacle;
+    }
+
+    #endregion
+
+    #region Menu Navigation
+
+    public void ToSkinsFromMenu()
+    {
+        camera.currentCameraPosition = cameraSkinsPosition;
+        menu.SetActive(false);
+        skinSelector.SetActive(true);
+        skinsController.UpdateCoinsText();
+        skinsController.UpdateBuyEquipText();
+    }
+
+    public void ToMenuFromSkins()
+    {
+        camera.currentCameraPosition = cameraDefaultPosition;
+        menu.SetActive(true);
+        skinSelector.SetActive(false);
+    }
+
     public void ToMenuFromGameOver()
     {
         ResetGame();
@@ -335,10 +423,18 @@ public class GameManager : MonoBehaviour
         camera.currentCameraPosition = cameraDefaultPosition;
     }
 
+    #endregion
+
+    #region Coin Controll
+
+    public void AddCoins(int amount)
+    {
+        currentCoins += amount;
+    }
+
     public int GetCoins()
     {
         return allCoins;
-        Debug.Log("Get Coins: " + allCoins);
     }
 
     public void RemoveCoins(int coins)
@@ -346,4 +442,6 @@ public class GameManager : MonoBehaviour
         allCoins -= coins;
         PlayerPrefs.SetInt("Coins", allCoins);
     }
+
+    #endregion
 }
