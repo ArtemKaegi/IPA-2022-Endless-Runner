@@ -11,15 +11,24 @@ public class SkinsController : MonoBehaviour
     private int equipedSkin;
     private int currentlyDisplayedSkin = 0;
     private GameManager gm;
+    private bool[] bought;
     [SerializeField] private TextMeshProUGUI BuyEquipText;
     [SerializeField] private TextMeshProUGUI CoinsText;
 
     private void Start()
     {
         gm = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
-        UpdateBuyEquipText();
         equipedSkin = PlayerPrefs.GetInt("EquipedSkin");
         gm.skin = skins[equipedSkin].skin;
+        bought = new bool[skins.Length];
+        for (int i = 0; i < bought.Length; i++)
+        {
+            bought[i] = PlayerPrefs.GetString("Skin" + i) == "Bought";
+        }
+
+        bought[0] = true;
+        Debug.Log(bought[1]);
+        UpdateBuyEquipText();
     }
 
     public void NextSkin()
@@ -44,7 +53,30 @@ public class SkinsController : MonoBehaviour
         }
     }
 
-    public void EquipSkin()
+    public void CheckButton()
+    {
+        Debug.Log(bought[currentlyDisplayedSkin]);
+        if (bought[currentlyDisplayedSkin])
+        {
+            if (currentlyDisplayedSkin != equipedSkin)
+            {
+                EquipSkin();
+            }
+        }
+        else
+        {
+            if (gm.GetCoins() > skins[currentlyDisplayedSkin].price)
+            {
+                gm.RemoveCoins(skins[currentlyDisplayedSkin].price);
+                PlayerPrefs.SetString("Skin" + currentlyDisplayedSkin, "Bought");
+                bought[currentlyDisplayedSkin] = true;
+                UpdateBuyEquipText();
+                UpdateCoinsText();
+            }
+        }
+    }
+
+    private void EquipSkin()
     {
         equipedSkin = currentlyDisplayedSkin;
         gm.skin = skins[currentlyDisplayedSkin].skin;
@@ -54,13 +86,20 @@ public class SkinsController : MonoBehaviour
 
     public void UpdateBuyEquipText()
     {
-        if (currentlyDisplayedSkin == equipedSkin)
+        if (bought[currentlyDisplayedSkin])
         {
-            BuyEquipText.text = "Equiped";
+            if (currentlyDisplayedSkin == equipedSkin)
+            {
+                BuyEquipText.text = "Equiped";
+            }
+            else
+            {
+                BuyEquipText.text = "Equip";
+            }
         }
         else
         {
-            BuyEquipText.text = "Equip";
+            BuyEquipText.text = "Buy " + skins[currentlyDisplayedSkin].price;
         }
     }
 

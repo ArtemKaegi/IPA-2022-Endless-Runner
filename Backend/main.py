@@ -55,10 +55,25 @@ def create_new_highscore(deviceId, highscore):
 def get_highscores():
     try:
         mycursor = mydb.cursor()
-        mycursor.execute("SELECT * FROM highscores")
+        mycursor.execute("SELECT players.playerName, highscores.highscore FROM highscores INNER JOIN players ON players.playerId = highscores.playerId ORDER BY highscore DESC LIMIT 100")
+        result = mycursor.fetchall()
         mycursor.close()
-        logging.info("Successfully ran: SELECT * FROM highscores")
-        return str(mycursor.fetchall())
+        logging.info("Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100")
+        return json.dumps(result)
+    except mysql.connector.Error as err:
+        logging.error("Something went wrong: {}".format(err))
+        return "Failure"
+
+@app.route("/skins/<deviceId>/<skins>")
+def set_skins(deviceId, skins):
+    try:
+        mycursor = mydb.cursor()
+        mycursor.execute("SELECT playerId FROM players WHERE deviceId = '" + deviceId + "'")
+        x = mycursor.fetchall()
+        mycursor.execute("INSERT INTO skins(playerId, highscore) VALUES(" + str(x[0][0]) + ", " + skins + ")")
+        result = mycursor.fetchall()
+        mycursor.close
+        return "success"
     except mysql.connector.Error as err:
         logging.error("Something went wrong: {}".format(err))
         return "Failure"

@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     private GameObject gameOverUi;
     private GameObject gameUi;
     private GameObject newPlayerUi;
+    private GameObject highscoreUi;
+    private GameObject highscoreUiContent;
     [SerializeField] private TextMeshProUGUI playerNameText;
 
     #endregion
@@ -110,6 +112,8 @@ public class GameManager : MonoBehaviour
         gameOverUi = GameObject.FindWithTag("GameOver");
         gameUi = GameObject.FindWithTag("GameUI");
         newPlayerUi = GameObject.FindWithTag("NewPlayer");
+        highscoreUi = GameObject.FindWithTag("Highscore");
+        highscoreUiContent = GameObject.FindWithTag("HighscoreContent");
         coinText = GameObject.FindWithTag("coinText").GetComponent<TextMeshProUGUI>();
         camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
         camera.currentCameraPosition = cameraDefaultPosition;
@@ -119,6 +123,7 @@ public class GameManager : MonoBehaviour
         skinSelector.SetActive(false);
         gameOverUi.SetActive(false);
         gameUi.SetActive(false);
+        highscoreUi.SetActive(false);
         scoreText = gameUi.GetComponentInChildren<TextMeshProUGUI>();
         connector = GameObject.FindWithTag("BackendConnector").GetComponent<BackendConnector>();
         if (PlayerPrefs.GetString("PlayerName") == "")
@@ -307,10 +312,7 @@ public class GameManager : MonoBehaviour
         currentObstacleGenerationZ += obstacles[i].length;
         if (GameStarted)
         {
-            if (player.GetComponent<PlayerController>().currentHorizontalPosition == 1)
-            {
-                score += 1;
-            }
+            player.GetComponent<PlayerController>().maxSpeed += 0.1f;
 
             score += 1;
             scoreText.text = score.ToString();
@@ -421,6 +423,13 @@ public class GameManager : MonoBehaviour
         gameOverUi.SetActive(false);
         menu.SetActive(true);
         camera.currentCameraPosition = cameraDefaultPosition;
+    }
+
+    public void ToHighscoreFromMenu()
+    {
+        highscoreUi.SetActive(true);
+        menu.SetActive(false);
+        connector.getHighscores(highscoreUiContent);
     }
 
     #endregion

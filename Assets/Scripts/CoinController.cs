@@ -24,7 +24,7 @@ public class CoinController : MonoBehaviour
     public void Pop()
     {
         gm.AddCoins(value);
-        GameObject currentDeath =Instantiate(death, transform.position, transform.rotation, null);
+        GameObject currentDeath = Instantiate(death, transform.position, transform.rotation, null);
         Destroy(currentDeath, 2);
         Destroy(gameObject);
     }

@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float laneSwitchingSpeed;
     [SerializeField] private float jumpTime;
     [SerializeField] private float duckTime;
-    [SerializeField] private float maxSpeed;
+    [SerializeField] public float maxSpeed;
     [SerializeField] private float acceleration;
     public Vector3 startPosition;
     private Rigidbody rb;
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         currentTransform = horizontalPositions[currentHorizontalPosition].verticalPositions[currentVerticalPosition]
             .transform;
-        dragDistance = Screen.height * 5 / 100;
+        dragDistance = Screen.height * 3 / 100;
         rb = GetComponent<Rigidbody>();
         startPosition = transform.position;
     }
@@ -198,6 +198,7 @@ public class PlayerController : MonoBehaviour
         gm.GameEnd();
         GameObject currentExplosion =
             Instantiate(explosionObject, playerTransform.position, playerTransform.rotation, null);
+        rb.velocity = new Vector3(0, 0, 0);
         Destroy(currentExplosion, 10);
         playerTransform.position = horizontalPositions[1].verticalPositions[1].transform.position;
         currentTransform = horizontalPositions[1].verticalPositions[1].transform;
