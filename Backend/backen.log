@@ -182,3 +182,187 @@
 2022-03-14 12:40:08,162 INFO     172.20.128.71 - - [14/Mar/2022 12:40:08] "GET /getHighscores HTTP/1.1" 200 -
 2022-03-14 12:41:00,325 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
 2022-03-14 12:41:00,325 INFO     172.20.128.71 - - [14/Mar/2022 12:41:00] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-14 19:30:04,160 INFO     Connection Succesful
+2022-03-14 19:30:04,170 WARNING   * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-14 19:30:04,170 INFO      * Running on http://172.20.160.246:5000/ (Press CTRL+C to quit)
+2022-03-14 19:33:33,632 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-14 19:33:33,633 INFO     172.20.160.246 - - [14/Mar/2022 19:33:33] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-14 19:34:10,998 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-14 19:34:10,998 INFO     172.20.160.246 - - [14/Mar/2022 19:34:10] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-14 19:34:33,757 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-14 19:34:33,757 INFO     172.20.160.246 - - [14/Mar/2022 19:34:33] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-14 19:35:27,598 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-14 19:35:27,599 INFO     172.20.160.246 - - [14/Mar/2022 19:35:27] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-14 19:35:59,776 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-14 19:35:59,777 INFO     172.20.160.246 - - [14/Mar/2022 19:35:59] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-14 20:07:51,267 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-14 20:07:51,269 INFO     172.20.160.246 - - [14/Mar/2022 20:07:51] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-14 20:14:02,686 INFO     Successfully ran: INSERT INTO players(playerName, deviceId) VALUES('asdf\u200b', 'f16e3a646bdd9f0983b6a0a0945fb04350e520ab')
+2022-03-14 20:14:02,687 INFO     172.20.160.246 - - [14/Mar/2022 20:14:02] "GET /createNewPlayer/asdf\u200b/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-14 20:14:14,327 INFO     Successfully ran: INSERT INTO highscores(playerId, highscore) VALUES(2, 3)
+2022-03-14 20:14:14,328 INFO     172.20.160.246 - - [14/Mar/2022 20:14:14] "GET /setNewHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab/3 HTTP/1.1" 200 -
+2022-03-15 09:38:48,370 INFO     Connection Succesful
+2022-03-15 09:38:48,386 WARNING   * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-15 09:38:48,386 INFO      * Running on http://172.20.128.71:5000/ (Press CTRL+C to quit)
+2022-03-15 09:41:31,553 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 09:41:31,555 INFO     172.20.128.71 - - [15/Mar/2022 09:41:31] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 09:42:33,720 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 09:42:33,721 INFO     172.20.128.71 - - [15/Mar/2022 09:42:33] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 09:43:46,669 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 09:43:46,670 INFO     172.20.128.71 - - [15/Mar/2022 09:43:46] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 09:45:14,018 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 09:45:14,019 INFO     172.20.128.71 - - [15/Mar/2022 09:45:14] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 09:47:45,033 INFO     Successfully ran: INSERT INTO players(playerName, deviceId) VALUES('Johnjnrjnr\u200b', 'f16e3a646bdd9f0983b6a0a0945fb04350e520ab')
+2022-03-15 09:47:45,035 INFO     172.20.128.71 - - [15/Mar/2022 09:47:45] "GET /createNewPlayer/Johnjnrjnr\u200b/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-15 09:48:02,182 INFO     Successfully ran: INSERT INTO highscores(playerId, highscore) VALUES(2, 0)
+2022-03-15 09:48:02,184 INFO     172.20.128.71 - - [15/Mar/2022 09:48:02] "GET /setNewHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab/0 HTTP/1.1" 200 -
+2022-03-15 10:06:02,754 INFO     Successfully ran: INSERT INTO highscores(playerId, highscore) VALUES(2, 1)
+2022-03-15 10:06:02,755 INFO     172.20.128.71 - - [15/Mar/2022 10:06:02] "GET /setNewHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab/1 HTTP/1.1" 200 -
+2022-03-15 10:06:22,416 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 10:06:22,417 INFO     172.20.128.71 - - [15/Mar/2022 10:06:22] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 10:07:18,912 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 10:07:18,913 INFO     172.20.128.71 - - [15/Mar/2022 10:07:18] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 10:58:54,175 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 10:58:54,177 INFO     172.20.128.71 - - [15/Mar/2022 10:58:54] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 10:58:54,231 INFO     172.20.128.71 - - [15/Mar/2022 10:58:54] "[33mGET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1[0m" 404 -
+2022-03-15 10:59:15,161 INFO     Connection Succesful
+2022-03-15 10:59:15,188 WARNING   * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-15 10:59:15,188 INFO      * Running on http://172.20.128.71:5000/ (Press CTRL+C to quit)
+2022-03-15 10:59:23,684 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 10:59:23,685 INFO     172.20.128.71 - - [15/Mar/2022 10:59:23] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 10:59:23,747 ERROR    Exception on /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab [GET]
+Traceback (most recent call last):
+  File "D:\Projects\Endless Runner\Backend\venv\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Projects\Endless Runner\Backend\venv\lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Projects\Endless Runner\Backend\venv\lib\site-packages\flask\app.py", line 1538, in finalize_request
+    response = self.make_response(rv)
+  File "D:\Projects\Endless Runner\Backend\venv\lib\site-packages\flask\app.py", line 1730, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The return type must be a string, dict, tuple, Response instance, or WSGI callable, but it was a list.
+2022-03-15 10:59:23,749 INFO     172.20.128.71 - - [15/Mar/2022 10:59:23] "[35m[1mGET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1[0m" 500 -
+2022-03-15 11:00:01,897 INFO     Connection Succesful
+2022-03-15 11:00:01,929 WARNING   * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-15 11:00:01,930 INFO      * Running on http://172.20.128.71:5000/ (Press CTRL+C to quit)
+2022-03-15 11:00:04,113 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 11:00:04,114 INFO     172.20.128.71 - - [15/Mar/2022 11:00:04] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 11:00:04,170 INFO     172.20.128.71 - - [15/Mar/2022 11:00:04] "GET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-15 11:01:45,271 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 11:01:45,272 INFO     172.20.128.71 - - [15/Mar/2022 11:01:45] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 11:01:45,334 INFO     172.20.128.71 - - [15/Mar/2022 11:01:45] "GET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-15 11:04:06,786 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 11:04:06,787 INFO     172.20.128.71 - - [15/Mar/2022 11:04:06] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 11:04:06,836 INFO     172.20.128.71 - - [15/Mar/2022 11:04:06] "GET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-15 11:04:40,755 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 11:04:40,755 INFO     172.20.128.71 - - [15/Mar/2022 11:04:40] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 11:04:40,818 INFO     172.20.128.71 - - [15/Mar/2022 11:04:40] "GET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-15 11:05:42,660 INFO     Connection Succesful
+2022-03-15 11:05:42,681 WARNING   * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-15 11:05:42,682 INFO      * Running on http://172.20.128.71:5000/ (Press CTRL+C to quit)
+2022-03-15 11:05:45,009 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 11:05:45,010 INFO     172.20.128.71 - - [15/Mar/2022 11:05:45] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 11:05:45,080 ERROR    Something went wrong: 1054 (42S22): Unknown column 'f16e3a646bdd9f0983b6a0a0945fb04350e520ab' in 'where clause'
+2022-03-15 11:05:45,081 INFO     172.20.128.71 - - [15/Mar/2022 11:05:45] "GET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-15 11:06:19,172 INFO     Connection Succesful
+2022-03-15 11:06:19,200 WARNING   * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-15 11:06:19,201 INFO      * Running on http://172.20.128.71:5000/ (Press CTRL+C to quit)
+2022-03-15 11:06:20,768 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 11:06:20,769 INFO     172.20.128.71 - - [15/Mar/2022 11:06:20] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 11:06:20,828 INFO     172.20.128.71 - - [15/Mar/2022 11:06:20] "GET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-15 11:07:32,076 INFO     Connection Succesful
+2022-03-15 11:07:32,108 WARNING   * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-15 11:07:32,108 INFO      * Running on http://172.20.128.71:5000/ (Press CTRL+C to quit)
+2022-03-15 11:07:33,592 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 11:07:33,593 INFO     172.20.128.71 - - [15/Mar/2022 11:07:33] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 11:07:33,653 INFO     Running: SELECT playerId FROM players WHERE deviceId = 'f16e3a646bdd9f0983b6a0a0945fb04350e520ab'
+2022-03-15 11:07:33,654 INFO     Running: SELECT players.playerName, highscores.highscore FROM highscores INNER JOIN players ON players.playerId = highscores.playerId WHERE players.playerName = '2' ORDER BY highscore DESC LIMIT 1
+2022-03-15 11:07:33,654 INFO     172.20.128.71 - - [15/Mar/2022 11:07:33] "GET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-15 11:08:00,497 INFO     Connection Succesful
+2022-03-15 11:08:00,510 WARNING   * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-15 11:08:00,510 INFO      * Running on http://172.20.128.71:5000/ (Press CTRL+C to quit)
+2022-03-15 11:08:04,815 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 11:08:04,816 INFO     172.20.128.71 - - [15/Mar/2022 11:08:04] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 11:08:04,856 INFO     Running: SELECT playerId FROM players WHERE deviceId = 'f16e3a646bdd9f0983b6a0a0945fb04350e520ab'
+2022-03-15 11:08:04,856 INFO     Running: SELECT players.playerName, highscores.highscore FROM highscores INNER JOIN players ON players.playerId = highscores.playerId WHERE players.playerId = '2' ORDER BY highscore DESC LIMIT 1
+2022-03-15 11:08:04,857 INFO     172.20.128.71 - - [15/Mar/2022 11:08:04] "GET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-15 11:08:08,876 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 11:08:08,880 INFO     172.20.128.71 - - [15/Mar/2022 11:08:08] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 11:08:08,948 INFO     Running: SELECT playerId FROM players WHERE deviceId = 'f16e3a646bdd9f0983b6a0a0945fb04350e520ab'
+2022-03-15 11:08:08,949 INFO     Running: SELECT players.playerName, highscores.highscore FROM highscores INNER JOIN players ON players.playerId = highscores.playerId WHERE players.playerId = '2' ORDER BY highscore DESC LIMIT 1
+2022-03-15 11:08:08,950 INFO     172.20.128.71 - - [15/Mar/2022 11:08:08] "GET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-15 11:08:24,071 INFO     Connection Succesful
+2022-03-15 11:08:24,100 WARNING   * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-15 11:08:24,102 INFO      * Running on http://172.20.128.71:5000/ (Press CTRL+C to quit)
+2022-03-15 11:08:27,528 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 11:08:27,529 INFO     172.20.128.71 - - [15/Mar/2022 11:08:27] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 11:08:27,575 INFO     Running: SELECT playerId FROM players WHERE deviceId = 'f16e3a646bdd9f0983b6a0a0945fb04350e520ab'
+2022-03-15 11:08:27,576 INFO     Running: SELECT players.playerName, highscores.highscore FROM highscores INNER JOIN players ON players.playerId = highscores.playerId WHERE players.playerId = 2 ORDER BY highscore DESC LIMIT 1
+2022-03-15 11:08:27,576 INFO     172.20.128.71 - - [15/Mar/2022 11:08:27] "GET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-15 11:10:32,428 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 11:10:32,428 INFO     172.20.128.71 - - [15/Mar/2022 11:10:32] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 11:10:32,498 INFO     Running: SELECT playerId FROM players WHERE deviceId = 'f16e3a646bdd9f0983b6a0a0945fb04350e520ab'
+2022-03-15 11:10:32,499 INFO     Running: SELECT players.playerName, highscores.highscore FROM highscores INNER JOIN players ON players.playerId = highscores.playerId WHERE players.playerId = 2 ORDER BY highscore DESC LIMIT 1
+2022-03-15 11:10:32,500 INFO     172.20.128.71 - - [15/Mar/2022 11:10:32] "GET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-15 11:11:07,924 INFO     Connection Succesful
+2022-03-15 11:11:07,952 WARNING   * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-15 11:11:07,953 INFO      * Running on http://172.20.128.71:5000/ (Press CTRL+C to quit)
+2022-03-15 11:11:15,105 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 11:11:15,105 INFO     172.20.128.71 - - [15/Mar/2022 11:11:15] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 11:11:15,166 INFO     Running: SELECT playerId FROM players WHERE deviceId = 'f16e3a646bdd9f0983b6a0a0945fb04350e520ab'
+2022-03-15 11:11:15,167 INFO     Running: SELECT players.playerName, highscores.highscore FROM highscores INNER JOIN players ON players.playerId = highscores.playerId WHERE players.playerId = 3 ORDER BY highscore DESC LIMIT 1
+2022-03-15 11:11:15,167 INFO     172.20.128.71 - - [15/Mar/2022 11:11:15] "GET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-15 11:11:48,392 INFO     Connection Succesful
+2022-03-15 11:11:48,420 WARNING   * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-15 11:11:48,421 INFO      * Running on http://172.20.128.71:5000/ (Press CTRL+C to quit)
+2022-03-15 11:11:52,027 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 11:11:52,027 INFO     172.20.128.71 - - [15/Mar/2022 11:11:52] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 11:11:52,088 INFO     Running: SELECT playerId FROM players WHERE deviceId = 'f16e3a646bdd9f0983b6a0a0945fb04350e520ab'
+2022-03-15 11:11:52,089 INFO     Running: SELECT players.playerName, highscores.highscore FROM highscores INNER JOIN players ON players.playerId = highscores.playerId WHERE players.playerId = 3 ORDER BY highscore DESC LIMIT 1
+2022-03-15 11:11:52,089 INFO     Returning: []
+2022-03-15 11:11:52,089 INFO     172.20.128.71 - - [15/Mar/2022 11:11:52] "GET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-15 11:13:12,440 INFO     Connection Succesful
+2022-03-15 11:13:12,476 WARNING   * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-15 11:13:12,477 INFO      * Running on http://172.20.128.71:5000/ (Press CTRL+C to quit)
+2022-03-15 11:13:15,047 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 11:13:15,048 INFO     172.20.128.71 - - [15/Mar/2022 11:13:15] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 11:13:15,120 INFO     Running: SELECT playerId FROM players WHERE deviceId = 'f16e3a646bdd9f0983b6a0a0945fb04350e520ab'
+2022-03-15 11:13:15,121 INFO     Running: SELECT players.playerName, highscores.highscore FROM highscores INNER JOIN players ON players.playerId = highscores.playerId WHERE players.playerId = 3 ORDER BY highscore DESC LIMIT 1
+2022-03-15 11:13:15,121 INFO     Returning: []
+2022-03-15 11:13:15,122 INFO     172.20.128.71 - - [15/Mar/2022 11:13:15] "GET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-15 11:14:59,970 INFO     Connection Succesful
+2022-03-15 11:14:59,993 WARNING   * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-15 11:14:59,994 INFO      * Running on http://172.20.128.71:5000/ (Press CTRL+C to quit)
+2022-03-15 11:15:09,738 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 11:15:09,739 INFO     172.20.128.71 - - [15/Mar/2022 11:15:09] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 11:15:09,807 INFO     Running: SELECT playerId FROM players WHERE deviceId = 'f16e3a646bdd9f0983b6a0a0945fb04350e520ab'
+2022-03-15 11:15:09,807 INFO     Running: SELECT players.playerName, highscores.highscore FROM highscores INNER JOIN players ON players.playerId = highscores.playerId WHERE players.playerId = 3 ORDER BY highscore DESC LIMIT 1
+2022-03-15 11:15:09,808 INFO     []
+2022-03-15 11:15:09,808 INFO     Returning: []
+2022-03-15 11:15:09,808 INFO     172.20.128.71 - - [15/Mar/2022 11:15:09] "GET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-15 11:16:06,337 INFO     Successfully ran: SELECT * FROM highscores ORDER BY highscore DESC LIMIT 100
+2022-03-15 11:16:06,337 INFO     172.20.128.71 - - [15/Mar/2022 11:16:06] "GET /getHighscores HTTP/1.1" 200 -
+2022-03-15 11:16:06,376 INFO     Running: SELECT playerId FROM players WHERE deviceId = 'f16e3a646bdd9f0983b6a0a0945fb04350e520ab'
+2022-03-15 11:16:06,377 INFO     Running: SELECT players.playerName, highscores.highscore FROM highscores INNER JOIN players ON players.playerId = highscores.playerId WHERE players.playerId = 3 ORDER BY highscore DESC LIMIT 1
+2022-03-15 11:16:06,377 INFO     []
+2022-03-15 11:16:06,377 INFO     Returning: []
+2022-03-15 11:16:06,377 INFO     172.20.128.71 - - [15/Mar/2022 11:16:06] "GET /getHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab HTTP/1.1" 200 -
+2022-03-15 14:40:16,395 INFO     Successfully ran: INSERT INTO highscores(playerId, highscore) VALUES(3, 0)
+2022-03-15 14:40:16,402 INFO     172.20.128.71 - - [15/Mar/2022 14:40:16] "GET /setNewHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab/0 HTTP/1.1" 200 -
+2022-03-15 14:44:29,195 INFO     Successfully ran: INSERT INTO highscores(playerId, highscore) VALUES(3, 0)
+2022-03-15 14:44:29,196 INFO     172.20.128.71 - - [15/Mar/2022 14:44:29] "GET /setNewHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab/0 HTTP/1.1" 200 -
+2022-03-15 14:44:47,044 INFO     Successfully ran: INSERT INTO highscores(playerId, highscore) VALUES(3, 0)
+2022-03-15 14:44:47,045 INFO     172.20.128.71 - - [15/Mar/2022 14:44:47] "GET /setNewHighscore/f16e3a646bdd9f0983b6a0a0945fb04350e520ab/0 HTTP/1.1" 200 -

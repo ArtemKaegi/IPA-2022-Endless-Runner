@@ -10,8 +10,8 @@ public class BackendConnector : MonoBehaviour
 {
     private string URI = "http://172.20.128.71:5000";
 
-    public GameObject HighscorePanel;
-
+    public GameObject highscorePanel;
+    
     public void AddPlayer(string playerName, string deviceId)
     {
         StartCoroutine(CreateNewPlayer(playerName, deviceId));
@@ -29,7 +29,6 @@ public class BackendConnector : MonoBehaviour
 
     private IEnumerator CreateNewPlayer(string playerName, string deviceId)
     {
-        Debug.Log("SetUP");
         using (UnityWebRequest webRequest =
                UnityWebRequest.Get(URI + "/createNewPlayer/" + playerName + "/" + deviceId))
         {
@@ -54,7 +53,6 @@ public class BackendConnector : MonoBehaviour
 
     private IEnumerator setNewHighscore(string deviceId, string highscore)
     {
-        Debug.Log("SetUP");
         using (UnityWebRequest webRequest =
                UnityWebRequest.Get(URI + "/setNewHighscore/" + deviceId + "/" + highscore))
         {
@@ -79,7 +77,6 @@ public class BackendConnector : MonoBehaviour
 
     private IEnumerator getHighscoresIE(GameObject parentObject)
     {
-        Debug.Log("SetUP");
         using (UnityWebRequest webRequest =
                UnityWebRequest.Get(URI + "/getHighscores"))
         {
@@ -104,6 +101,7 @@ public class BackendConnector : MonoBehaviour
                         if (i % 2 == 0)
                         {
                             highscoreInfo[i] = highscoreInfo[i].Replace("[", "");
+                            highscoreInfo[i] = highscoreInfo[i].Replace("\\u200b", "");
                             highscores[currentHighscore] = new Highscore();
                             highscores[currentHighscore].playerName = highscoreInfo[i];
                         }
@@ -119,11 +117,10 @@ public class BackendConnector : MonoBehaviour
                     Debug.Log(highscores[0].highscore);
                     foreach (var x in highscores)
                     {
-                        GameObject currentPanel = Instantiate(HighscorePanel, parentObject.transform.position,
+                        GameObject currentPanel = Instantiate(highscorePanel, parentObject.transform.position,
                             parentObject.transform.rotation, parentObject.transform);
                         GameObject text = currentPanel.transform.GetChild(0).gameObject;
-                        text.GetComponent<TextMeshProUGUI>().text  = " " + x.playerName + "      highscore: " + x.highscore;
-                        text.SetActive(false);
+                        text.GetComponent<TextMeshProUGUI>().text  = " " + x.playerName + "         highscore: " + x.highscore;
                     }
 
                     break;

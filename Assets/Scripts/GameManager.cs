@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private Transform lastExit;
     private GameObject player;
     private TextMeshProUGUI scoreText;
+    private float defaultMaxSpeed = 20;
     private bool GameStarted = false;
     private int score;
     private BackendConnector connector;
@@ -241,6 +242,7 @@ public class GameManager : MonoBehaviour
         currentCoins = 0;
         player.SetActive(true);
         player.transform.position = player.GetComponent<PlayerController>().startPosition;
+        player.GetComponent<PlayerController>().maxSpeed = defaultMaxSpeed;
         player.SetActive(false);
         gameOverUi.SetActive(false);
         gameUi.SetActive(false);
@@ -432,6 +434,11 @@ public class GameManager : MonoBehaviour
         connector.getHighscores(highscoreUiContent);
     }
 
+    public void ToMenuFromHighscore()
+    {
+        highscoreUi.SetActive(false);
+        menu.SetActive(true);
+    }
     #endregion
 
     #region Coin Controll
