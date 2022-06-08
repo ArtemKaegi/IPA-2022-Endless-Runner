@@ -8,4 +8,8 @@ Um diese App zu Starten braucht man Unity 2020.3.27f1 oder neuer mit dem Android
 
 ## Code
 
-Der gesammte Code befindet sich in einzelnen Dateien im [Scripts Ordner](IPA-2022-Endless-Runner/Assets/Scripts/).
+Der gesammte Frontend Code befindet sich in einzelnen Dateien im [Scripts Ordner](Assets/Scripts/).
+Der Code für das Backend befindet sich im [Backend Ordner](Backend)
+
+## Spiel
+Das Spiel wird auf einem Handy gespielt. Der Spieler bewegt sich ständig nach vorne. Er kann sich horizontal zwischen drei Pfaden bewegen und vertikal "Springen" und "Ducken". Der Spieler muss Hindernissen ausweichen und dabei Münzen, die auf der Strecke erstellt werden, sammeln. Mit den Münzen kann er Skins kaufen.
