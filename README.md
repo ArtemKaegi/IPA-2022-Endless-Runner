@@ -8,4 +8,4 @@ Um diese App zu Starten braucht man Unity 2020.3.27f1 oder neuer mit dem Android
 
 ## Code
 
-Der gesammte Code befindet sich in einzelnen Dateien im Scripts Ordner.
+Der gesammte Code befindet sich in einzelnen Dateien im [Scripts Ordner](IPA-2022-Endless-Runner/Assets/Scripts/).
