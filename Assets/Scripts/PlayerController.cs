@@ -80,10 +80,45 @@ public class PlayerController : MonoBehaviour
 
     void CheckInput()
     {
-        if (Input.touchCount >= 1)
+        if (Input.touchCount >= 20)
         {
             CheckTouch(Input.GetTouch(0));
+            Debug.Log("Touch");
         }
+        else
+        {
+        Debug.Log("Check Normal Input");
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                if (currentHorizontalPosition > 0)
+                {
+                    currentHorizontalPosition--;
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                if (currentHorizontalPosition < horizontalPositions.Length - 1)
+                {
+                    currentHorizontalPosition++;
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                if (currentVerticalPosition < 2)
+                {
+                    currentVerticalPosition++;
+                }
+            }else if (Input.GetKeyDown(KeyCode.S))
+            {
+                if (currentVerticalPosition > 0)
+                {
+                    currentVerticalPosition--;
+                }
+            }
+        }
+        currentTransform = horizontalPositions[currentHorizontalPosition]
+            .verticalPositions[currentVerticalPosition].transform;
     }
 
     void CheckTouch(Touch touch)
@@ -138,9 +173,6 @@ public class PlayerController : MonoBehaviour
                                 }
                             }
                         }
-
-                        currentTransform = horizontalPositions[currentHorizontalPosition]
-                            .verticalPositions[currentVerticalPosition].transform;
                     }
                 }
 

@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 
 public class BackendConnector : MonoBehaviour
 {
-    private string URI = "http://172.20.128.71:5000";
+    private string URI = "http://172.20.128.76:5000";
 
     public GameObject highscorePanel;
     
@@ -93,6 +93,10 @@ public class BackendConnector : MonoBehaviour
                     Debug.LogError("HTTP Error: " + webRequest.error);
                     break;
                 case UnityWebRequest.Result.Success:
+                    for (int i = 0; i < parentObject.transform.childCount; i++)
+                    {
+                        Destroy(parentObject.transform.GetChild(i).gameObject);
+                    }
                     String[] highscoreInfo = webRequest.downloadHandler.text.Split(',');
                     Highscore[] highscores = new Highscore[highscoreInfo.Length / 2];
                     int currentHighscore = 0;

@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        PlayerPrefs.DeleteAll();
         allCoins = PlayerPrefs.GetInt("Coins");
         player = GameObject.FindWithTag("Player");
         menu = GameObject.FindWithTag("Menu");
@@ -125,17 +126,10 @@ public class GameManager : MonoBehaviour
         gameOverUi.SetActive(false);
         gameUi.SetActive(false);
         highscoreUi.SetActive(false);
+        newPlayerUi.SetActive(false);
         scoreText = gameUi.GetComponentInChildren<TextMeshProUGUI>();
         connector = GameObject.FindWithTag("BackendConnector").GetComponent<BackendConnector>();
-        if (PlayerPrefs.GetString("PlayerName") == "")
-        {
-            menu.SetActive(false);
-        }
-        else
-        {
-            newPlayerUi.SetActive(false);
-        }
-        
+
     }
 
     #region Backend
